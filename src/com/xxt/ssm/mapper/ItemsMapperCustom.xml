@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xxt.ssm.mapper.ItemsMapperCustom" >
+  <!-- 定义商品查询的sql片段 -->
+  <sql id="query_items_where">
+  	<!-- 动态sql，满足条件进行sql拼接 -->
+  	<if test="itemsCusom!=null">
+  		<if test="itemsCustom.name!=null and itemsCustom.name!=''">
+  			items.name like '%${itemsCustom.name}%'
+  		</if>
+  		
+  	</if>
+  	
+  </sql>
+  <!-- 商品列表查询 -->
+  <select id="findItemsList" parameterType="com.xxt.ssm.entity.ItemsQueryVo" resultType="com.xxt.ssm.entity.ItemsCustom">
+  	select * from items
+  	<where>
+  		<include refid="query_items_where"></include>
+  	</where>
+  </select>
+</mapper>
