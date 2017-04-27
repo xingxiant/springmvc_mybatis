@@ -4,4 +4,5 @@ package com.xxt.ssm.entity;
  */
 public class ItemsCustom extends Items{
 	//添加商品的扩展类
+	
 }

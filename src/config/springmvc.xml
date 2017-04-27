@@ -20,8 +20,23 @@
 		 -->
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 		<!-- 配置注解的映射器和适配器 -->
-		<mvc:annotation-driven></mvc:annotation-driven>
+		
+		<!-- 使用 mvc:annotation-driven代替上边注解映射器和注解适配器配置
+		mvc:annotation-driven默认加载很多的参数绑定方法，-->
+		<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 		<!-- 扫描组件 -->
 		<context:component-scan base-package="com.xxt.ssm.controller"></context:component-scan>
 		
+		<!-- 自定义参数绑定 -->
+		<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!-- 转换器 -->
+		<property name="converters">
+			<list>
+				<!-- 日期类型转换 -->
+				<bean class="com.xxt.ssm.controller.converter.CustomDateConverter"/>
+			</list>
+		</property>
+		
+	
+	</bean>
 </beans>

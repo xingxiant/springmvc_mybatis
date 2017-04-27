@@ -4,6 +4,8 @@ package com.xxt.ssm.entity;
  */
 public class ItemsQueryVo {
 	private Items items;
+	private ItemsCustom itemCustom;
+	
 	public Items getItems() {
 		return items;
 	}
@@ -16,5 +18,5 @@ public class ItemsQueryVo {
 	public void setItemCustom(ItemsCustom itemCustom) {
 		this.itemCustom = itemCustom;
 	}
-	private ItemsCustom itemCustom;
+	
 }
