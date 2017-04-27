@@ -29,7 +29,7 @@
 		
 		<!-- 自定义参数绑定 -->
 		<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<!-- 转换器 -->
+		<!-- 自定义转换器 -->
 		<property name="converters">
 			<list>
 				<!-- 日期类型转换 -->
