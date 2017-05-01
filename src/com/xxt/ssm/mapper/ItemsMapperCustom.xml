@@ -4,7 +4,7 @@
   <!-- 定义商品查询的sql片段 -->
   <sql id="query_items_where">
   	<!-- 动态sql，满足条件进行sql拼接 -->
-  	<if test="itemsCusom!=null">
+  	<if test="itemsCustom!=null">
   		<if test="itemsCustom.name!=null and itemsCustom.name!=''">
   			items.name like '%${itemsCustom.name}%'
   		</if>

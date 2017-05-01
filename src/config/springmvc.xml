@@ -21,9 +21,9 @@
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 		<!-- 配置注解的映射器和适配器 -->
 		
-		<!-- 使用 mvc:annotation-driven代替上边注解映射器和注解适配器配置
+		<!-- 使用 mvc:annotation-driven 注解驱动 代替上边注解映射器和注解适配器配置
 		mvc:annotation-driven默认加载很多的参数绑定方法，-->
-		<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+		<mvc:annotation-driven conversion-service="conversionService" validator="validator"></mvc:annotation-driven>
 		<!-- 扫描组件 -->
 		<context:component-scan base-package="com.xxt.ssm.controller"></context:component-scan>
 		
@@ -36,7 +36,41 @@
 				<bean class="com.xxt.ssm.controller.converter.CustomDateConverter"/>
 			</list>
 		</property>
+		</bean>
 		
-	
-	</bean>
+		<!-- 校验器 -->
+		<bean id="validator"
+			class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+			<!-- hibernate校验器-->
+			<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+			<!-- 指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下的ValidationMessages.properties -->
+			<property name="validationMessageSource" ref="messageSource" />
+		</bean>
+		<!-- 校验错误信息配置文件 -->
+		<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<!-- 资源文件名-->
+			<property name="basenames">   
+	       	 <list>    
+	            <value>classpath:config/CustomValidationMessages</value> 
+	       	 </list>   
+	    	</property>
+			<!-- 资源文件编码格式 -->
+			<property name="fileEncodings" value="utf-8" />
+			<!-- 对资源文件内容缓存时间，单位秒 -->
+			<property name="cacheSeconds" value="120" />
+		</bean>
+		
+		<!-- 全局异常处理器
+		只要实现HandlerExceptionResolver接口就是全局异常处理器
+		 -->
+		<bean class="com.xxt.ssm.exception.CustomExceptionResolver"></bean>
+		
+		<!-- 文件上传 -->
+		<bean id="multipartResolver"
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<!-- 设置上传文件的最大尺寸为5MB -->
+			<property name="maxUploadSize">
+				<value>5242880</value>
+			</property>
+		</bean>
 </beans>
